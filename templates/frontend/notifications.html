@@ -1,0 +1,89 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications | InvoicePro</title>
+    <link rel="stylesheet" href="{% static 'css/notifications.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+</head>
+<body>
+
+<div class="app-layout">
+
+    {% include "frontend/partials/sidebar.html" with active_page="notifications" %}
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <h1>Notifications</h1>
+                <p>Stay updated with invoices and customer payments.</p>
+            </div>
+
+            <button id="refreshBtn" class="secondary-btn">
+                Refresh
+            </button>
+        </header>
+
+        <div id="messageBox" class="message"></div>
+
+        <section class="summary-grid">
+
+            <div class="summary-card">
+                <p>Total Notifications</p>
+                <h2 id="totalNotifications">0</h2>
+            </div>
+
+            <div class="summary-card">
+                <p>Unread Notifications</p>
+                <h2 id="unreadNotifications">0</h2>
+            </div>
+
+            <div class="summary-card">
+                <p>Read Notifications</p>
+                <h2 id="readNotifications">0</h2>
+            </div>
+
+        </section>
+
+        <section class="panel">
+
+            <div class="panel-header">
+                <div>
+                    <h2>Recent Activity</h2>
+                    <p>Updates from your InvoicePro workspace.</p>
+                </div>
+
+                <select id="notificationFilter">
+                    <option value="all">All Notifications</option>
+                    <option value="unread">Unread Only</option>
+                    <option value="read">Read Only</option>
+                </select>
+            </div>
+
+            <div id="notificationsList">
+
+                <div class="empty-state">
+                    Loading notifications...
+                </div>
+
+            </div>
+
+        </section>
+
+        <footer class="footer">
+            InvoicePro Notification Center
+        </footer>
+
+    </main>
+
+</div>
+
+<script src="{% static 'js/auth.js' %}"></script>
+<script src="{% static 'js/notifications.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,136 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+}
+
+.login-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 950px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+}
+
+.brand-section {
+    background: linear-gradient(135deg, #142b59, #2563eb);
+    color: white;
+    padding: 80px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.brand-icon {
+    width: 65px;
+    height: 65px;
+    border: 2px solid white;
+    border-radius: 15px;
+    display: grid;
+    place-items: center;
+    font-size: 35px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.brand-section h1 {
+    font-size: 34px;
+    font-weight: bold;
+}
+
+.brand-section p {
+    margin-top: 12px;
+    color: #dbeafe;
+}
+
+.form-section {
+    padding: 65px 45px;
+}
+
+.form-section h2 {
+    font-weight: bold;
+    color: #172554;
+    font-size: 28px;
+}
+
+.subtitle {
+    color: #64748b;
+    margin-bottom: 30px;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #334155;
+}
+
+.form-control {
+    padding: 13px;
+    border-radius: 9px;
+    border: 1px solid #dbe2ea;
+}
+
+.form-control:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.login-btn {
+    background: #2563eb;
+    color: white;
+    padding: 13px;
+    border-radius: 9px;
+    font-weight: bold;
+}
+
+.login-btn:hover {
+    background: #1d4ed8;
+    color: white;
+}
+
+.login-btn:disabled {
+    opacity: 0.7;
+}
+
+.footer-text {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 12px;
+    margin-top: 30px;
+}
+
+@media (max-width: 650px) {
+    .login-card {
+        grid-template-columns: 1fr;
+    }
+
+    .brand-section {
+        padding: 35px 20px;
+    }
+
+    .brand-section h1 {
+        font-size: 27px;
+    }
+
+    .form-section {
+        padding: 35px 25px;
+    }
+}

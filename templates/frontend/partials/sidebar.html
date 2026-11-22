@@ -1,0 +1,33 @@
+<aside class="sidebar">
+    <div class="brand">Invoice<span>Pro</span></div>
+
+    <p class="menu-label">WORKSPACE</p>
+
+    <nav aria-label="Main navigation">
+        <a class="nav-link{% if active_page == 'dashboard' %} active{% endif %}"
+           href="{% url 'dashboard-page' %}"
+           {% if active_page == 'dashboard' %}aria-current="page"{% endif %}>Dashboard</a>
+        <a class="nav-link{% if active_page == 'clients' %} active{% endif %}"
+           href="{% url 'clients-page' %}"
+           {% if active_page == 'clients' %}aria-current="page"{% endif %}>Clients</a>
+        <a class="nav-link{% if active_page == 'products' %} active{% endif %}"
+           href="{% url 'products-page' %}"
+           {% if active_page == 'products' %}aria-current="page"{% endif %}>Products</a>
+        <a class="nav-link{% if active_page == 'invoices' %} active{% endif %}"
+           href="{% url 'invoices-page' %}"
+           {% if active_page == 'invoices' %}aria-current="page"{% endif %}>Invoices</a>
+        <a class="nav-link{% if active_page == 'payments' %} active{% endif %}"
+           href="{% url 'payments-page' %}"
+           {% if active_page == 'payments' %}aria-current="page"{% endif %}>Payments</a>
+        <a class="nav-link{% if active_page == 'reports' %} active{% endif %}"
+           href="{% url 'reports-page' %}"
+           {% if active_page == 'reports' %}aria-current="page"{% endif %}>Reports</a>
+        <a class="nav-link{% if active_page == 'notifications' %} active{% endif %}"
+           href="{% url 'notifications-page' %}"
+           {% if active_page == 'notifications' %}aria-current="page"{% endif %}>Notifications</a>
+    </nav>
+
+    <div class="sidebar-bottom">
+        <button id="logoutButton" class="logout-btn" type="button">Sign Out</button>
+    </div>
+</aside>

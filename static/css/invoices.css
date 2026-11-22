@@ -1,0 +1,134 @@
+
+.invoice-form-card,
+.invoice-list-card {
+    margin-bottom: 22px;
+}
+
+.invoice-form-card h4,
+.invoice-list-card h4 {
+    font-weight: bold;
+    color: #172554;
+}
+
+.invoice-form-card > p,
+.invoice-list-card > p {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.invoice-form-card .form-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.invoice-form-card .form-control,
+.invoice-form-card .form-select {
+    padding: 11px;
+    border-radius: 8px;
+}
+
+.item-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 24px 0 15px;
+}
+
+.item-heading h5 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.invoice-item-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr auto;
+    gap: 12px;
+    align-items: end;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 15px;
+    border-radius: 9px;
+    margin-bottom: 12px;
+}
+
+.invoice-item-row label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.invoice-item-row .form-control,
+.invoice-item-row .form-select {
+    padding: 10px;
+}
+
+.remove-item-btn {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: none;
+    padding: 10px 13px;
+    border-radius: 7px;
+}
+
+.invoice-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 0;
+    border-bottom: 1px solid #e8edf4;
+}
+
+.discount-input {
+    max-width: 140px;
+}
+
+.grand-total {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1d4ed8;
+    border-bottom: none;
+}
+
+.download-btn {
+    border: none;
+    background: #dbeafe;
+    color: #1d4ed8;
+    padding: 7px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.invoice-status {
+    font-size: 11px;
+    padding: 6px 9px;
+    border-radius: 20px;
+    background: #dbeafe;
+    color: #1d4ed8;
+    font-weight: bold;
+}
+
+.invoice-status.PAID {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.invoice-status.OVERDUE {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+@media (max-width: 650px) {
+    .invoice-item-row {
+        grid-template-columns: 1fr;
+    }
+
+    .item-heading {
+        gap: 10px;
+    }
+}
+
+

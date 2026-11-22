@@ -1,0 +1,559 @@
+/* InvoicePro AI assistant styles. Kept separate so dashboard.css is untouched. */
+.assistant-card {
+    margin-top: 24px;
+    padding: 24px;
+}
+
+.assistant-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.assistant-title-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.assistant-title-row h4 {
+    margin: 0;
+}
+
+.assistant-title-icon {
+    display: inline-flex;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: #eaf1ff;
+    color: #2459c5;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.assistant-ai-label {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #dbe7ff;
+    border-radius: 999px;
+    padding: 4px 9px;
+    background: #f4f7ff;
+    color: #315bb4;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .02em;
+}
+
+.assistant-description {
+    margin: 8px 0 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.assistant-clear-button {
+    flex: 0 0 auto;
+    border: 1px solid #dbe2ea;
+    border-radius: 8px;
+    padding: 8px 12px;
+    background: #fff;
+    color: #475569;
+    font-size: 12px;
+    font-weight: 600;
+    transition: background .15s ease, border-color .15s ease;
+}
+
+.assistant-clear-button:hover:not(:disabled) {
+    border-color: #b8c5d6;
+    background: #f8fafc;
+}
+
+.assistant-clear-button:disabled {
+    cursor: not-allowed;
+    opacity: .55;
+}
+
+.assistant-messages {
+    display: flex;
+    min-height: 250px;
+    max-height: 430px;
+    flex-direction: column;
+    gap: 18px;
+    overflow-y: auto;
+    padding: 20px;
+    border: 1px solid #e5eaf1;
+    border-radius: 12px;
+    background: #f8fafc;
+    scroll-behavior: smooth;
+}
+
+.assistant-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+}
+
+.assistant-message-user {
+    justify-content: flex-end;
+}
+
+.assistant-message-avatar {
+    display: flex;
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dbe5f3;
+    border-radius: 50%;
+    background: #edf3ff;
+    color: #2858b5;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.assistant-message-user .assistant-message-avatar {
+    border-color: #d7e1f2;
+    background: #e8eef8;
+    color: #334155;
+    font-size: 9px;
+}
+
+.assistant-message-content {
+    display: flex;
+    max-width: min(82%, 760px);
+    flex-direction: column;
+    gap: 5px;
+}
+
+.assistant-message-user .assistant-message-content {
+    align-items: flex-end;
+}
+
+.assistant-message-name {
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.assistant-message-bubble {
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px 13px 13px 13px;
+    padding: 11px 14px;
+    background: #fff;
+    color: #263244;
+    font-size: 13px;
+    line-height: 1.65;
+}
+
+.assistant-message-user .assistant-message-bubble {
+    border-color: #d9e5ff;
+    border-radius: 13px 4px 13px 13px;
+    background: #eaf1ff;
+    color: #1e3a68;
+}
+
+.assistant-composer {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    margin-top: 14px;
+    padding: 9px;
+    border: 1px solid #dce3ec;
+    border-radius: 12px;
+    background: #fff;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.assistant-composer:focus-within {
+    border-color: #8aacec;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, .10);
+}
+
+.assistant-input {
+    display: block;
+    width: 100%;
+    min-height: 42px;
+    max-height: 130px;
+    resize: vertical;
+    border: 0;
+    outline: 0;
+    padding: 10px 9px;
+    background: transparent;
+    color: #1e293b;
+    font: inherit;
+    font-size: 13px;
+    line-height: 1.5;
+    box-shadow: none !important;
+}
+
+.assistant-input::placeholder {
+    color: #94a3b8;
+}
+
+.assistant-input:disabled {
+    cursor: wait;
+    opacity: .65;
+}
+
+.assistant-send-button {
+    display: inline-flex;
+    min-width: 83px;
+    height: 40px;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 0;
+    border-radius: 8px;
+    padding: 0 14px;
+    background: #2459c5;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    transition: background .15s ease, opacity .15s ease;
+}
+
+.assistant-send-button:hover:not(:disabled) {
+    background: #1d4ca9;
+}
+
+.assistant-send-button:disabled {
+    cursor: wait;
+    opacity: .75;
+}
+
+.assistant-send-spinner {
+    width: 13px;
+    height: 13px;
+    border: 2px solid rgba(255, 255, 255, .45);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: assistant-spin .7s linear infinite;
+}
+
+@keyframes assistant-spin {
+    to { transform: rotate(360deg); }
+}
+
+.assistant-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 8px;
+    color: #8491a3;
+    font-size: 11px;
+}
+
+.assistant-disclaimer {
+    margin: 12px 0 0;
+    color: #8994a3;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+    .assistant-card {
+        padding: 16px;
+    }
+
+    .assistant-heading {
+        gap: 10px;
+    }
+
+    .assistant-title-row {
+        gap: 7px;
+    }
+
+    .assistant-title-row h4 {
+        font-size: 16px;
+    }
+
+    .assistant-clear-button {
+        padding: 7px 9px;
+    }
+
+    .assistant-messages {
+        min-height: 220px;
+        max-height: 380px;
+        padding: 13px;
+    }
+
+    .assistant-message-content {
+        max-width: 88%;
+    }
+
+    .assistant-message-avatar {
+        width: 28px;
+        height: 28px;
+        flex-basis: 28px;
+    }
+
+    .assistant-composer {
+        gap: 6px;
+        padding: 7px;
+    }
+
+    .assistant-send-button {
+        min-width: 68px;
+        padding: 0 10px;
+    }
+}
+
+
+
+/* =========================================
+   INVOICEPRO AI — PREMIUM CHAT COMPOSER
+========================================= */
+
+#assistantForm.assistant-form {
+    display: flex !important;
+    align-items: flex-end;
+    gap: 12px;
+    width: 100%;
+    padding: 10px 12px;
+    margin-top: 18px;
+    background: #ffffff;
+    border: 1px solid #dce3ed;
+    border-radius: 18px;
+    box-shadow: 0 3px 14px rgba(15, 23, 42, 0.045);
+    transition: border-color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+#assistantForm.assistant-form:focus-within {
+    border-color: #5788ee;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.10);
+}
+
+#assistantInput {
+    flex: 1 1 auto;
+    width: 100%;
+    min-width: 0;
+    min-height: 52px;
+    max-height: 160px;
+    padding: 14px 10px;
+    resize: vertical;
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    color: #172033;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.6;
+    box-shadow: none !important;
+}
+
+#assistantInput::placeholder {
+    color: #94a3b8;
+    opacity: 1;
+}
+
+#assistantInput:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+#assistantSendButton {
+    flex: 0 0 auto;
+    min-width: 112px;
+    height: 46px;
+    padding: 0 19px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border: none;
+    border-radius: 13px;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(37, 99, 235, 0.20);
+    transition: background 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+#assistantSendButton::after {
+    content: "↗";
+    font-size: 19px;
+    line-height: 1;
+}
+
+#assistantSendButton:hover:not(:disabled) {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 12px rgba(37, 99, 235, 0.25);
+}
+
+#assistantSendButton:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+#assistantSendButton:focus-visible {
+    outline: 3px solid rgba(59, 130, 246, 0.25);
+    outline-offset: 3px;
+}
+
+#assistantSendButton:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+    transform: none;
+}
+
+#assistantSendButton:disabled::after {
+    content: "";
+}
+
+/* Character counter */
+#assistantCharacterCount {
+    margin: 8px 5px 0;
+    color: #94a3b8;
+    font-size: 11px;
+    text-align: right;
+}
+
+/* Assistant status */
+#assistantStatus {
+    margin: 9px 4px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+/* Disclaimer */
+.assistant-disclaimer {
+    margin-top: 12px;
+    color: #94a3b8;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+/* Mobile layout */
+@media (max-width: 576px) {
+    #assistantForm.assistant-form {
+        gap: 7px;
+        padding: 7px;
+        border-radius: 15px;
+    }
+
+    #assistantInput {
+        min-height: 48px;
+        padding: 12px 7px;
+        font-size: 13px;
+    }
+
+    #assistantSendButton {
+        min-width: 86px;
+        height: 43px;
+        padding: 0 12px;
+        font-size: 13px;
+    }
+}
+
+
+/* Professional AI Markdown formatting */
+
+.assistant-message-bubble {
+    overflow-wrap: anywhere;
+    line-height: 1.7;
+}
+
+.assistant-message-bubble > :first-child {
+    margin-top: 0;
+}
+
+.assistant-message-bubble > :last-child {
+    margin-bottom: 0;
+}
+
+.assistant-message-bubble h1,
+.assistant-message-bubble h2,
+.assistant-message-bubble h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 16px 0 9px;
+    color: #172033;
+}
+
+.assistant-message-bubble p {
+    margin: 8px 0;
+}
+
+.assistant-message-bubble strong {
+    font-weight: 700;
+    color: #172033;
+}
+
+.assistant-message-bubble ul,
+.assistant-message-bubble ol {
+    padding-left: 23px;
+    margin: 10px 0;
+}
+
+.assistant-message-bubble li {
+    margin: 6px 0;
+}
+
+.assistant-message-bubble table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 13px;
+    display: block;
+    overflow-x: auto;
+}
+
+.assistant-message-bubble th,
+.assistant-message-bubble td {
+    padding: 10px 12px;
+    border: 1px solid #e2e8f0;
+    text-align: left;
+    white-space: normal;
+}
+
+.assistant-message-bubble th {
+    background: #f1f5f9;
+    font-weight: 700;
+    color: #172033;
+}
+
+.assistant-message-bubble tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+.assistant-message-bubble blockquote {
+    border-left: 3px solid #3b82f6;
+    padding-left: 12px;
+    margin: 12px 0;
+    color: #64748b;
+}
+
+.assistant-message-bubble code {
+    background: #f1f5f9;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.assistant-message-bubble pre {
+    overflow-x: auto;
+    background: #172033;
+    color: #f8fafc;
+    padding: 14px;
+    border-radius: 9px;
+}
+
+.assistant-message-bubble a {
+    color: #2563eb;
+    text-decoration: underline;
+}

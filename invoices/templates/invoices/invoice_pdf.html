@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+
+    <style>
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 11px;
+            color: #222;
+        }
+
+        .header {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .company-name {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .invoice-title {
+            font-size: 20px;
+            text-align: right;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #eeeeee;
+            padding: 8px;
+            border: 1px solid #cccccc;
+        }
+
+        td {
+            padding: 8px;
+            border: 1px solid #cccccc;
+        }
+
+        .no-border td {
+            border: none;
+            padding: 3px;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .summary {
+            margin-top: 20px;
+            width: 45%;
+            margin-left: auto;
+        }
+
+        .total {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: bold;
+            margin-top: 18px;
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table class="no-border header">
+        <tr>
+            <td width="60%">
+                <div class="company-name">
+                    {{ company.name }}
+                </div>
+
+                <div>
+                    {{ company.address }}<br>
+                    {{ company.city }}, {{ company.state }} - {{ company.pincode }}
+                </div>
+
+                <div>
+                    Email: {{ company.email }}<br>
+                    Phone: {{ company.phone }}
+                </div>
+
+                {% if company.gst_number %}
+                <div>
+                    GSTIN: {{ company.gst_number }}
+                </div>
+                {% endif %}
+            </td>
+
+            <td width="40%">
+                <div class="invoice-title">
+                    INVOICE
+                </div>
+
+                <div class="right">
+                    Invoice No: {{ invoice.invoice_number }}<br>
+                    Issue Date: {{ invoice.issue_date }}<br>
+                    Due Date: {{ invoice.due_date }}<br>
+                    Status: {{ invoice.status }}
+                </div>
+            </td>
+        </tr>
+    </table>
+
+
+    <div class="section-title">
+        Bill To
+    </div>
+
+    <table>
+        <tr>
+            <td>
+                <strong>{{ client.name }}</strong><br>
+
+                {% if client.email %}
+                    Email: {{ client.email }}<br>
+                {% endif %}
+
+                {% if client.phone %}
+                    Phone: {{ client.phone }}<br>
+                {% endif %}
+
+                {% if client.address %}
+                    {{ client.address }}<br>
+                {% endif %}
+
+                {{ client.city }}, {{ client.state }} - {{ client.pincode }}
+
+                {% if client.gst_number %}
+                    <br>GSTIN: {{ client.gst_number }}
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+
+
+    <div class="section-title">
+        Invoice Items
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th width="10%">Qty</th>
+                <th width="18%">Unit Price</th>
+                <th width="12%">GST</th>
+                <th width="20%">Total</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for item in invoice.items.all %}
+            <tr>
+                <td>{{ item.description }}</td>
+                <td class="right">{{ item.quantity }}</td>
+                <td class="right">Rs.{{ item.unit_price }}</td>
+                <td class="right">{{ item.gst_rate }}%</td>
+                <td class="right">Rs.{{ item.line_total }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    <table class="summary">
+        <tr>
+            <td>Subtotal</td>
+            <td class="right">Rs.{{ invoice.subtotal }}</td>
+        </tr>
+
+        <tr>
+            <td>GST</td>
+            <td class="right">Rs.{{ invoice.tax_amount }}</td>
+        </tr>
+
+        <tr>
+            <td>Discount</td>
+            <td class="right">Rs.{{ invoice.discount_amount }}</td>
+        </tr>
+
+        <tr class="total">
+            <td>Grand Total</td>
+            <td class="right">Rs.{{ invoice.total_amount }}</td>
+        </tr>
+    </table>
+
+
+    <div class="section-title">
+        Payment Information
+    </div>
+
+    <table>
+        <tr>
+            <td>Total Amount</td>
+            <td class="right">Rs.{{ invoice.total_amount }}</td>
+        </tr>
+
+        <tr>
+            <td>Paid Amount</td>
+            <td class="right">Rs.{{ invoice.paid_amount }}</td>
+        </tr>
+
+        <tr>
+            <td>Remaining Amount</td>
+            <td class="right">Rs.{{ invoice.remaining_amount }}</td>
+        </tr>
+    </table>
+
+
+    {% if invoice.notes %}
+    <div class="section-title">
+        Notes
+    </div>
+
+    <p>
+        {{ invoice.notes }}
+    </p>
+    {% endif %}
+
+
+    {% if invoice.terms_and_conditions %}
+    <div class="section-title">
+        Terms & Conditions
+    </div>
+
+    <p>
+        {{ invoice.terms_and_conditions }}
+    </p>
+    {% endif %}
+
+</body>
+</html>

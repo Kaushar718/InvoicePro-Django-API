@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports | InvoicePro</title>
+    <link rel="stylesheet" href="{% static 'css/reports.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+</head>
+<body>
+<div class="app-layout">
+    {% include "frontend/partials/sidebar.html" with active_page="reports" %}
+
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <h1>Business Reports</h1>
+                <p>Review invoice totals, payments and outstanding balances.</p>
+            </div>
+            <button id="refreshBtn" class="secondary-btn" type="button">
+                Refresh
+            </button>
+        </header>
+
+        <div id="messageBox" class="message" role="alert"></div>
+
+        <section class="stats-grid" aria-label="Financial summary">
+            <article class="stat-card">
+                <p>Total Invoices</p>
+                <h2 id="totalInvoices">—</h2>
+            </article>
+            <article class="stat-card">
+                <p>Total Invoiced</p>
+                <h2 id="totalRevenue">—</h2>
+            </article>
+            <article class="stat-card">
+                <p>Payments Received</p>
+                <h2 id="totalPayments">—</h2>
+            </article>
+            <article class="stat-card">
+                <p>Outstanding Balance</p>
+                <h2 id="outstanding">—</h2>
+            </article>
+        </section>
+
+        <section class="stats-grid secondary-stats" aria-label="Invoice statistics">
+            <article class="stat-card">
+                <p>Clients</p>
+                <h2 id="totalClients">—</h2>
+            </article>
+            <article class="stat-card">
+                <p>Products</p>
+                <h2 id="totalProducts">—</h2>
+            </article>
+            <article class="stat-card">
+                <p>Paid Invoices</p>
+                <h2 id="paidInvoices">—</h2>
+            </article>
+            <article class="stat-card">
+                <p>Pending Invoices</p>
+                <h2 id="pendingInvoices">—</h2>
+            </article>
+            <article class="stat-card">
+                <p>Overdue Invoices</p>
+                <h2 id="overdueInvoices">—</h2>
+            </article>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header">
+                <div>
+                    <h2>Monthly Payments Received</h2>
+                    <p>Revenue grouped by payment date.</p>
+                </div>
+            </div>
+            <div id="revenueChart" class="chart-container">
+                <p class="empty">Loading monthly revenue...</p>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-header">
+                <div>
+                    <h2>Invoice Summary</h2>
+                    <p>Invoice totals, received amounts and balances.</p>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Invoice Number</th>
+                            <th>Client ID</th>
+                            <th>Issue Date</th>
+                            <th>Status</th>
+                            <th>Invoiced</th>
+                            <th>Received</th>
+                            <th>Remaining</th>
+                        </tr>
+                    </thead>
+                    <tbody id="invoiceTable">
+                        <tr>
+                            <td colspan="7" class="empty">Loading invoices...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+<script src="{% static 'js/auth.js' %}"></script>
+<script src="{% static 'js/reports.js' %}"></script>
+</body>
+</html>

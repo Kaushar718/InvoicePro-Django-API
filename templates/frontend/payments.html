@@ -1,0 +1,179 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payments | InvoicePro</title>
+    <link rel="stylesheet" href="{% static 'css/payments.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+</head>
+<body>
+
+<div class="app-layout">
+
+    {% include "frontend/partials/sidebar.html" with active_page="payments" %}
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <h1>Payments</h1>
+                <p>Manage customer payments and transactions.</p>
+            </div>
+            <div class="profile">InvoicePro</div>
+        </header>
+
+        <section class="summary-grid">
+
+            <div class="summary-card">
+                <p>Total Received</p>
+                <h2 id="totalReceived">₹0.00</h2>
+            </div>
+
+            <div class="summary-card">
+                <p>Selected Invoice Total</p>
+                <h2 id="invoiceTotal">₹0.00</h2>
+            </div>
+
+            <div class="summary-card">
+                <p>Paid Amount</p>
+                <h2 id="paidAmount">₹0.00</h2>
+            </div>
+
+            <div class="summary-card">
+                <p>Remaining Balance</p>
+                <h2 id="remainingAmount">₹0.00</h2>
+            </div>
+
+        </section>
+
+        <section class="panel">
+
+            <div class="panel-header">
+                <div>
+                    <h2>Record Payment</h2>
+                    <p>Select an invoice and record a payment.</p>
+                </div>
+            </div>
+
+            <div id="messageBox" class="message"></div>
+
+            <form id="paymentForm">
+
+                <div class="form-grid">
+
+                    <div class="form-group full-width">
+                        <label for="invoiceSelect">Select Invoice</label>
+                        <select id="invoiceSelect" required>
+                            <option value="">Loading invoices...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="amount">Payment Amount (₹)</label>
+                        <input
+                            type="number"
+                            id="amount"
+                            min="0.01"
+                            step="0.01"
+                            placeholder="Enter amount"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="paymentMethod">Payment Method</label>
+                        <select id="paymentMethod" required>
+                            <option value="UPI">UPI</option>
+                            <option value="CASH">Cash</option>
+                            <option value="BANK">Bank Transfer</option>
+                            <option value="CARD">Card</option>
+                            <option value="OTHER">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="transactionReference">
+                            Transaction Reference
+                        </label>
+                        <input
+                            type="text"
+                            id="transactionReference"
+                            maxlength="100"
+                            placeholder="Example: TXN-001"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="paymentDate">Payment Date</label>
+                        <input type="date" id="paymentDate" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="notes">Notes</label>
+                        <textarea
+                            id="notes"
+                            placeholder="Optional payment notes"
+                            rows="3"
+                        ></textarea>
+                    </div>
+
+                </div>
+
+                <button type="submit" id="submitPayment" class="primary-btn">
+                    Record Payment
+                </button>
+
+            </form>
+
+        </section>
+
+        <section class="panel">
+
+            <div class="panel-header">
+                <div>
+                    <h2>Payment History</h2>
+                    <p id="historySubtitle">Select an invoice to view payments.</p>
+                </div>
+
+                <button id="refreshBtn" class="secondary-btn">
+                    Refresh
+                </button>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Payment ID</th>
+                            <th>Invoice Number</th>
+                            <th>Amount</th>
+                            <th>Method</th>
+                            <th>Transaction Reference</th>
+                            <th>Date</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="paymentsTable">
+                        <tr>
+                            <td colspan="7" class="empty">
+                                Select an invoice to view payment history.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="{% static 'js/auth.js' %}"></script>
+<script src="{% static 'js/payments.js' %}"></script>
+</body>
+</html>
