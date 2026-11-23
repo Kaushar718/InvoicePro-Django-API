@@ -1,7 +1,6 @@
 
 // InvoicePro Dashboard
 // Actual business data is stored under Company ID 8.
-const INVOICEPRO_COMPANY_ID = 8;
 
 async function apiRequest(url, options = {}) {
     const headers = new Headers(options.headers || {});
@@ -70,7 +69,7 @@ async function loadDashboard() {
         errorBox.classList.add("d-none");
 
         // Always load the verified business company.
-        const companyId = INVOICEPRO_COMPANY_ID;
+        const companyId = await InvoiceProAuth.getCompanyId();
 
         const [dashboard, revenue, invoices, user] = await Promise.all([
             apiRequest(`/api/companies/${companyId}/dashboard/`),
@@ -406,7 +405,7 @@ async function sendAssistantMessage(event) {
 
     try {
         // Use the same verified company for the AI request.
-        const companyId = INVOICEPRO_COMPANY_ID;
+        const companyId = await InvoiceProAuth.getCompanyId();
 
         const result = await apiRequest(
             `/api/companies/${companyId}/financial-assistant/`,

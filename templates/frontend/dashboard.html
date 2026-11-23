@@ -238,6 +238,44 @@
 
     let refreshPromise = null;
 
+    let companyIdPromise = null;
+
+async function getCompanyId() {
+    if (!companyIdPromise) {
+        companyIdPromise = (async function () {
+            const response = await apiFetch("/api/companies/");
+            const data = await response.json().catch(() => ({}));
+
+            if (!response.ok) {
+                throw new Error(
+                    data.detail || data.error || "Unable to load company."
+                );
+            }
+
+            const companies = Array.isArray(data)
+                ? data
+                : (data.results || []);
+
+            if (!companies.length) {
+                throw new Error("No company is linked to this account.");
+            }
+
+            const latestCompany = [...companies].sort(
+                (a, b) =>
+                    new Date(b.created_at || 0) -
+                    new Date(a.created_at || 0)
+            )[0];
+
+            return latestCompany.id;
+        })().catch(error => {
+            companyIdPromise = null;
+            throw error;
+        });
+    }
+
+    return companyIdPromise;
+}
+
     function logout() {
         sessionStorage.removeItem(ACCESS_TOKEN_KEY);
         sessionStorage.removeItem(REFRESH_TOKEN_KEY);
@@ -322,10 +360,11 @@
         return response;
     }
 
-    window.InvoiceProAuth = {
-        apiFetch: apiFetch,
-        logout: logout
-    };
+   window.InvoiceProAuth = {
+    apiFetch: apiFetch,
+    getCompanyId: getCompanyId,
+    logout: logout
+};
 
     document.querySelectorAll("#logoutButton").forEach(function (button) {
         button.addEventListener("click", logout);
