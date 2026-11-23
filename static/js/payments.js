@@ -1,6 +1,4 @@
-
-const COMPANY_ID = 8;
-const API_BASE = `/api/companies/${COMPANY_ID}`;
+let API_BASE = "";
 
 const invoiceSelect = document.getElementById("invoiceSelect");
 const paymentForm = document.getElementById("paymentForm");
@@ -374,16 +372,20 @@ document.getElementById("refreshBtn").addEventListener("click", async () => {
 
 async function initializePaymentsPage() {
     try {
+        const companyId = await InvoiceProAuth.getCompanyId();
+
+        if (!companyId) {
+            throw new Error("No company workspace found. Please log in again.");
+        }
+
+        API_BASE = `/api/companies/${companyId}`;
+
         await loadInvoices();
+
     } catch (error) {
+        invoiceSelect.innerHTML =
+            '<option value="">Unable to load invoices</option>';
+
         showMessage(error.message, "error");
     }
 }
-
-updateInvoiceSummary({
-    id: null,
-    total_amount: 0,
-    paid_amount: 0,
-    remaining_amount: 0
-});
-initializePaymentsPage();

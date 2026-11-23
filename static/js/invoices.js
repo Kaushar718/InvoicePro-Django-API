@@ -11,11 +11,14 @@ const itemsContainer = document.getElementById("invoiceItems");
 const invoiceRows = document.getElementById("invoiceRows");
 const messageBox = document.getElementById("message");
 
+
 async function apiRequest(url, options = {}) {
     const headers = new Headers(options.headers || {});
+
     if (options.body && !headers.has("Content-Type")) {
         headers.set("Content-Type", "application/json");
     }
+
     const response = await InvoiceProAuth.apiFetch(url, {
         ...options,
         headers
@@ -29,17 +32,19 @@ async function apiRequest(url, options = {}) {
         throw new Error(
             data?.detail ||
             JSON.stringify(data) ||
-            "API request failed."
+            `API request failed (${response.status}).`
         );
     }
 
     return data;
 }
 
+
 function showMessage(text, type = "success") {
     messageBox.textContent = text;
     messageBox.className = `alert alert-${type}`;
 }
+
 
 function escapeHTML(value) {
     return String(value ?? "").replace(/[&<>"']/g, character => ({
@@ -51,18 +56,32 @@ function escapeHTML(value) {
     })[character]);
 }
 
+
 function formatMoney(value) {
     return "Rs. " + Number(value || 0).toFixed(2);
 }
+
 
 function getArray(data) {
     if (Array.isArray(data)) return data;
     return data?.results || [];
 }
 
+
+// ========================================
+// INITIAL DATA LOADING
+// ========================================
+
 async function loadInitialData() {
     try {
         const companyId = await InvoiceProAuth.getCompanyId();
+
+        if (!companyId) {
+            throw new Error(
+                "No company workspace found. Please log in again."
+            );
+        }
+
         CLIENT_API = `/api/companies/${companyId}/clients/`;
         PRODUCT_API = `/api/companies/${companyId}/products/`;
         INVOICE_API = `/api/companies/${companyId}/invoices/`;
@@ -73,7 +92,9 @@ async function loadInitialData() {
         ]);
 
         clients = getArray(clientData);
-        products = getArray(productData).filter(p => p.is_active);
+        products = getArray(productData).filter(
+            product => product.is_active
+        );
 
         const clientSelect = document.getElementById("client");
 
@@ -82,8 +103,10 @@ async function loadInitialData() {
 
         clients.forEach(client => {
             const option = document.createElement("option");
+
             option.value = client.id;
             option.textContent = client.name;
+
             clientSelect.appendChild(option);
         });
 
@@ -101,9 +124,15 @@ async function loadInitialData() {
         await loadInvoices();
 
     } catch (error) {
+        console.error("Invoice initialization error:", error);
         showMessage(error.message, "danger");
     }
 }
+
+
+// ========================================
+// INVOICE ITEM ROWS
+// ========================================
 
 function addItemRow() {
     const row = document.createElement("div");
@@ -121,10 +150,12 @@ function addItemRow() {
     const defaultOption = document.createElement("option");
     defaultOption.value = "";
     defaultOption.textContent = "Choose product";
+
     select.appendChild(defaultOption);
 
     products.forEach(product => {
         const option = document.createElement("option");
+
         option.value = product.id;
         option.textContent =
             `${product.name} | ${product.sku} | ${formatMoney(product.price)}`;
@@ -141,6 +172,7 @@ function addItemRow() {
     quantityLabel.textContent = "Quantity";
 
     const quantityInput = document.createElement("input");
+
     quantityInput.type = "number";
     quantityInput.className = "form-control quantity-input";
     quantityInput.min = "0.01";
@@ -152,6 +184,7 @@ function addItemRow() {
     quantityField.appendChild(quantityInput);
 
     const removeButton = document.createElement("button");
+
     removeButton.type = "button";
     removeButton.className = "remove-item-btn";
     removeButton.textContent = "Remove";
@@ -173,6 +206,7 @@ function addItemRow() {
     updateTotals();
 }
 
+
 function getSelectedItems() {
     const rows = itemsContainer.querySelectorAll(".invoice-item-row");
 
@@ -186,7 +220,7 @@ function getSelectedItems() {
         );
 
         const product = products.find(
-            item => item.id === productId
+            item => Number(item.id) === productId
         );
 
         if (!product || !Number.isFinite(quantity) || quantity <= 0) {
@@ -202,6 +236,11 @@ function getSelectedItems() {
         };
     });
 }
+
+
+// ========================================
+// TOTAL CALCULATION
+// ========================================
 
 function updateTotals() {
     const selectedItems = getSelectedItems();
@@ -235,6 +274,7 @@ function updateTotals() {
         formatMoney(Math.max(0, subtotal + tax - discount));
 }
 
+
 document.getElementById("addItemButton").addEventListener(
     "click",
     addItemRow
@@ -244,6 +284,11 @@ document.getElementById("discount").addEventListener(
     "input",
     updateTotals
 );
+
+
+// ========================================
+// CREATE INVOICE
+// ========================================
 
 invoiceForm.addEventListener("submit", async event => {
     event.preventDefault();
@@ -274,7 +319,10 @@ invoiceForm.addEventListener("submit", async event => {
     const dueDate = document.getElementById("due_date").value;
 
     if (!issueDate || !dueDate || dueDate < issueDate) {
-        showMessage("Due date cannot be before issue date.", "danger");
+        showMessage(
+            "Due date cannot be before issue date.",
+            "danger"
+        );
         return;
     }
 
@@ -332,6 +380,7 @@ invoiceForm.addEventListener("submit", async event => {
         await loadInvoices();
 
     } catch (error) {
+        console.error("Invoice creation error:", error);
         showMessage(error.message, "danger");
 
     } finally {
@@ -339,6 +388,11 @@ invoiceForm.addEventListener("submit", async event => {
         button.textContent = "Create Invoice";
     }
 });
+
+
+// ========================================
+// LOAD INVOICES
+// ========================================
 
 async function loadInvoices() {
     try {
@@ -370,6 +424,7 @@ async function loadInvoices() {
                 </td>
                 <td>
                     <button
+                        type="button"
                         class="download-btn"
                         data-invoice-id="${Number(invoice.id)}">
                         Download PDF
@@ -381,39 +436,95 @@ async function loadInvoices() {
         });
 
     } catch (error) {
+        console.error("Invoice loading error:", error);
         showMessage(error.message, "danger");
+
+        invoiceRows.innerHTML =
+            '<tr><td colspan="6">Unable to load invoices.</td></tr>';
     }
 }
 
+
+// ========================================
+// PDF DOWNLOAD
+// ========================================
+
 invoiceRows.addEventListener("click", async event => {
-    const button = event.target.closest("[data-invoice-id]");
+    const button = event.target.closest(".download-btn");
 
     if (!button) return;
 
     const invoiceId = button.dataset.invoiceId;
 
+    if (!invoiceId) {
+        showMessage("Invoice ID is missing.", "danger");
+        return;
+    }
+
     button.disabled = true;
     button.textContent = "Downloading...";
+
+    let objectURL = null;
 
     try {
         const response = await InvoiceProAuth.apiFetch(
             `${INVOICE_API}${invoiceId}/pdf/`,
             {
-                headers: { "Accept": "application/pdf" }
+                method: "GET",
+                headers: {
+                    "Accept": "application/json"
+                }
             }
         );
 
         if (!response.ok) {
-            throw new Error("PDF download failed.");
+            let errorMessage =
+                `PDF download failed (HTTP ${response.status}).`;
+
+            const rawResponse = await response.text().catch(() => "");
+
+            if (rawResponse) {
+                try {
+                    const data = JSON.parse(rawResponse);
+
+                    errorMessage =
+                        data.detail ||
+                        data.error ||
+                        data.message ||
+                        errorMessage;
+
+                } catch (parseError) {
+                    if (response.status === 500) {
+                        errorMessage =
+                            "PDF generation failed on the server (HTTP 500).";
+                    } else if (response.status === 403) {
+                        errorMessage =
+                            "You do not have permission to download this invoice.";
+                    } else if (response.status === 404) {
+                        errorMessage =
+                            "Invoice not found.";
+                    }
+                }
+            }
+
+            throw new Error(errorMessage);
         }
 
         const blob = await response.blob();
 
-        if (blob.type !== "application/pdf") {
-            throw new Error("Server did not return a PDF file.");
+        const mimeType = (blob.type || "")
+            .split(";")[0]
+            .trim()
+            .toLowerCase();
+
+        if (!blob.size || mimeType !== "application/pdf") {
+            throw new Error(
+                `Invalid PDF response. Received: ${mimeType || "unknown file type"}.`
+            );
         }
 
-        const objectURL = URL.createObjectURL(blob);
+        objectURL = URL.createObjectURL(blob);
+
         const link = document.createElement("a");
 
         link.href = objectURL;
@@ -423,15 +534,35 @@ invoiceRows.addEventListener("click", async event => {
         link.click();
         link.remove();
 
-        URL.revokeObjectURL(objectURL);
+        // Give the browser time to start the download.
+        window.setTimeout(() => {
+            if (objectURL) {
+                URL.revokeObjectURL(objectURL);
+            }
+        }, 2000);
+
+        showMessage(
+            "Invoice PDF downloaded successfully!",
+            "success"
+        );
 
     } catch (error) {
-        showMessage(error.message, "danger");
+        console.error("Invoice PDF download error:", error);
+
+        showMessage(
+            error.message || "Unable to download invoice PDF.",
+            "danger"
+        );
 
     } finally {
         button.disabled = false;
         button.textContent = "Download PDF";
     }
 });
+
+
+// ========================================
+// INITIALIZE PAGE
+// ========================================
 
 loadInitialData();
