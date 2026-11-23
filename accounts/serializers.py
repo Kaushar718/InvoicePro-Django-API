@@ -1,3 +1,4 @@
+
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
@@ -18,22 +19,19 @@ class RegisterSerializer(serializers.ModelSerializer):
             "password",
             "first_name",
             "last_name",
-            "role",
         ]
 
-def create(self, validated_data):
-    password = validated_data.pop("password")
+    def create(self, validated_data):
+        password = validated_data.pop("password")
 
-    user = User(
-        **validated_data,
-        role=User.Role.COMPANY_OWNER,
-    )
+        user = User.objects.create_user(
+            password=password,
+            role=User.Role.COMPANY_OWNER,
+            is_active=True,
+            **validated_data
+        )
 
-    user.set_password(password)
-    user.save()
-
-    return user
-
+        return user
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -55,5 +53,3 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "is_email_verified",
             "created_at",
         ]
-
-
