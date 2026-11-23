@@ -1,20 +1,23 @@
 
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f1f5f9">
 
-    <title>Login | InvoicePro</title>
+    <title>Sign In | InvoicePro</title>
 
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet"
     >
 
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}?v=3"
+    >
 </head>
 
 <body>
@@ -23,29 +26,47 @@
 
     <div class="login-card">
 
-        <div class="brand-section">
+        <!-- Brand Section -->
+        <section class="brand-section">
+
             <div class="brand-icon">I</div>
 
             <h1>InvoicePro</h1>
 
-            <p>
-                Smart Invoicing. Simple Business.
-            </p>
-        </div>
+            <p>Smart Invoicing. Simple Business.</p>
 
-        <div class="form-section">
+            <div class="brand-divider"></div>
 
-            <h2>Welcome Back!</h2>
+            <span class="brand-caption">
+                Simplify your business finances with confidence.
+            </span>
 
-            <p class="subtitle">
-                Sign in to manage your business.
-            </p>
+        </section>
 
-            <div id="message" class="alert d-none" role="alert"></div>
+
+        <!-- Login Form Section -->
+        <main class="form-section">
+
+            <div class="form-heading">
+                <span class="welcome-label">WELCOME BACK</span>
+
+                <h2>Welcome Back!</h2>
+
+                <p class="subtitle">
+                    Sign in to manage your business.
+                </p>
+            </div>
+
+            <div
+                id="message"
+                class="alert d-none"
+                role="alert"
+            ></div>
+
 
             <form id="loginForm">
 
-                <div class="mb-3">
+                <div class="form-group">
                     <label for="email" class="form-label">
                         Email Address
                     </label>
@@ -55,11 +76,13 @@
                         id="email"
                         class="form-control"
                         placeholder="Enter your email"
+                        autocomplete="email"
                         required
                     >
                 </div>
 
-                <div class="mb-4">
+
+                <div class="form-group password-group">
                     <label for="password" class="form-label">
                         Password
                     </label>
@@ -69,31 +92,53 @@
                         id="password"
                         class="form-control"
                         placeholder="Enter your password"
+                        autocomplete="current-password"
                         required
                     >
                 </div>
+
 
                 <button
                     type="submit"
                     id="loginButton"
                     class="btn login-btn w-100"
                 >
-                    Sign In
+                    <span>Sign In</span>
+                    <span class="button-arrow" aria-hidden="true">→</span>
                 </button>
 
             </form>
 
-            <p class="footer-text">
-                Secure Business Management Platform
-            </p>
 
-        </div>
+            <!-- Signup Section -->
+            <div class="auth-switch-section">
+
+                <p class="auth-switch-text">
+                    New to InvoicePro?
+                </p>
+
+                <a href="/register/" class="signup-link">
+                    Create an account
+                    <span aria-hidden="true">→</span>
+                </a>
+
+            </div>
+
+
+            <!-- Footer -->
+            <div class="login-footer">
+                <span class="footer-indicator"></span>
+                Secure Business Management Platform
+            </div>
+
+        </main>
 
     </div>
 
 </div>
 
-<script src="{% static 'js/login.js' %}"></script>
+
+<script src="{% static 'js/login.js' %}?v=2"></script>
 
 </body>
 </html>

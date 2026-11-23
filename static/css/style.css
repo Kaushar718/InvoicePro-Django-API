@@ -1,4 +1,9 @@
 
+/* ============================================
+   INVOICEPRO AUTHENTICATION DESIGN
+   Premium Sign In / Sign Up Interface
+============================================ */
+
 * {
     margin: 0;
     padding: 0;
@@ -6,33 +11,58 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
     background: #f1f5f9;
+    color: #172033;
 }
+
+
+/* ============================================
+   MAIN WRAPPER
+============================================ */
 
 .login-wrapper {
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 25px;
+    padding: 30px 20px;
 }
+
+
+/* ============================================
+   LOGIN CARD
+============================================ */
 
 .login-card {
     width: 100%;
-    max-width: 950px;
+    max-width: 980px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    background: white;
-    border-radius: 18px;
+    background: #ffffff;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e8edf4;
+    box-shadow: 0 20px 55px rgba(15, 23, 42, 0.09);
 }
 
+
+/* ============================================
+   BRAND SECTION
+============================================ */
+
 .brand-section {
-    background: linear-gradient(135deg, #142b59, #2563eb);
-    color: white;
-    padding: 80px 40px;
+    background: linear-gradient(
+        145deg,
+        #142b59 0%,
+        #1d4ed8 65%,
+        #2563eb 100%
+    );
+
+    color: #ffffff;
+    padding: 75px 42px;
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -41,96 +71,333 @@ body {
 }
 
 .brand-icon {
-    width: 65px;
-    height: 65px;
-    border: 2px solid white;
-    border-radius: 15px;
+    width: 68px;
+    height: 68px;
+
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 17px;
+
     display: grid;
     place-items: center;
-    font-size: 35px;
-    font-weight: bold;
-    margin-bottom: 20px;
+
+    font-size: 36px;
+    font-weight: 700;
+
+    margin-bottom: 23px;
 }
 
 .brand-section h1 {
-    font-size: 34px;
-    font-weight: bold;
+    font-size: 36px;
+    font-weight: 750;
+    letter-spacing: -0.8px;
 }
 
 .brand-section p {
     margin-top: 12px;
     color: #dbeafe;
+    font-size: 15px;
 }
 
+.brand-divider {
+    width: 55px;
+    height: 3px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.75);
+    margin: 27px 0 20px;
+}
+
+.brand-caption {
+    max-width: 260px;
+    color: #dbeafe;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+
+/* ============================================
+   FORM SECTION
+============================================ */
+
 .form-section {
-    padding: 65px 45px;
+    padding: 65px 48px 38px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.welcome-label {
+    display: inline-block;
+    margin-bottom: 10px;
+
+    color: #2563eb;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
 }
 
 .form-section h2 {
-    font-weight: bold;
     color: #172554;
-    font-size: 28px;
+    font-size: 29px;
+    font-weight: 750;
+    letter-spacing: -0.7px;
 }
 
 .subtitle {
     color: #64748b;
-    margin-bottom: 30px;
+    margin-top: 9px;
+    margin-bottom: 29px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* ============================================
+   FORM FIELDS
+============================================ */
+
+.form-group {
+    margin-bottom: 21px;
 }
 
 .form-label {
-    font-weight: 600;
+    display: block;
+    margin-bottom: 9px;
+
     color: #334155;
+    font-size: 13px;
+    font-weight: 650;
 }
 
 .form-control {
-    padding: 13px;
-    border-radius: 9px;
-    border: 1px solid #dbe2ea;
+    width: 100%;
+    min-height: 49px;
+
+    padding: 13px 15px;
+
+    border-radius: 10px;
+    border: 1px solid #dce3ed;
+
+    background: #ffffff;
+    color: #172033;
+
+    font-size: 14px;
+
+    transition: border-color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.form-control::placeholder {
+    color: #94a3b8;
 }
 
 .form-control:focus {
     border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.10);
+    outline: none;
 }
 
+
+/* ============================================
+   SIGN IN BUTTON
+============================================ */
+
 .login-btn {
+    min-height: 49px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+
     background: #2563eb;
-    color: white;
-    padding: 13px;
-    border-radius: 9px;
-    font-weight: bold;
+    color: #ffffff;
+
+    border: none;
+    border-radius: 10px;
+
+    padding: 13px 18px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    box-shadow: 0 5px 12px rgba(37, 99, 235, 0.16);
+
+    transition: background 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
 }
 
 .login-btn:hover {
     background: #1d4ed8;
-    color: white;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 7px 16px rgba(37, 99, 235, 0.22);
+}
+
+.login-btn:active {
+    transform: translateY(0);
 }
 
 .login-btn:disabled {
     opacity: 0.7;
+    cursor: not-allowed;
 }
 
-.footer-text {
-    text-align: center;
-    color: #94a3b8;
-    font-size: 12px;
+.button-arrow {
+    font-size: 19px;
+    font-weight: 400;
+}
+
+
+/* ============================================
+   SIGNUP SECTION
+   More breathing space below Sign In button
+============================================ */
+
+.auth-switch-section {
     margin-top: 30px;
+    padding-top: 24px;
+
+    border-top: 1px solid #edf1f6;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
 }
 
-@media (max-width: 650px) {
+.auth-switch-text {
+    margin: 0 0 8px;
+
+    color: #64748b;
+    font-size: 13px;
+}
+
+.signup-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    color: #2563eb;
+    font-size: 14px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition: color 0.2s ease,
+                gap 0.2s ease;
+}
+
+.signup-link:hover {
+    color: #1d4ed8;
+    gap: 11px;
+    text-decoration: none;
+}
+
+
+/* ============================================
+   FOOTER
+============================================ */
+
+.login-footer {
+    margin-top: 25px;
+    padding-top: 18px;
+
+    border-top: 1px solid #f1f5f9;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    color: #94a3b8;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.45px;
+    text-align: center;
+}
+
+.footer-indicator {
+    width: 7px;
+    height: 7px;
+    flex-shrink: 0;
+
+    background: #22c55e;
+    border-radius: 50%;
+}
+
+
+/* ============================================
+   RESPONSIVE DESIGN
+============================================ */
+
+@media (max-width: 750px) {
+
     .login-card {
+        max-width: 480px;
         grid-template-columns: 1fr;
     }
 
     .brand-section {
-        padding: 35px 20px;
+        padding: 38px 25px;
+    }
+
+    .brand-icon {
+        width: 55px;
+        height: 55px;
+        font-size: 29px;
+        margin-bottom: 15px;
     }
 
     .brand-section h1 {
-        font-size: 27px;
+        font-size: 29px;
+    }
+
+    .brand-section p {
+        font-size: 13px;
+    }
+
+    .brand-divider {
+        margin: 18px 0 12px;
+    }
+
+    .brand-caption {
+        font-size: 12px;
     }
 
     .form-section {
-        padding: 35px 25px;
+        padding: 38px 30px 30px;
+    }
+}
+
+
+@media (max-width: 420px) {
+
+    .login-wrapper {
+        padding: 15px;
+    }
+
+    .login-card {
+        border-radius: 15px;
+    }
+
+    .form-section {
+        padding: 32px 22px 25px;
+    }
+
+    .form-section h2 {
+        font-size: 25px;
+    }
+
+    .auth-switch-section {
+        margin-top: 25px;
+        padding-top: 21px;
+    }
+
+    .login-footer {
+        font-size: 9px;
     }
 }
